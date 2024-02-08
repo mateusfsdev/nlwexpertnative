@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { useLocalSearchParams } from 'expo-router'
 
-export default function Produuct(){
+export default function Product(){
   const { id } = useLocalSearchParams()
   
   return (

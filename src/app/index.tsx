@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react'
 import { View, FlatList, SectionList, Text } from 'react-native'
+import {  Link } from 'expo-router'
+
 import { CATEGORIES, MENU } from '../utils/data/products'
 
 import { Header } from '../components/header'
@@ -47,7 +49,11 @@ return (
   <SectionList 
     ref={sectionListRef}
     sections={MENU}
-    renderItem={({item}) => <Product data={item} />}
+    renderItem={({item}) =>(
+      <Link href={`/product/${item.id}`} asChild>
+        <Product data={item} />
+      </Link>
+    )}
     keyExtractor={(item) => item.id}
     stickySectionHeadersEnabled={false}
     renderSectionHeader={({section: {title} }) => (
