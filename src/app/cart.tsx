@@ -91,6 +91,8 @@ export default function Cart(){
             </Text>
           </View>
           <Input 
+          onSubmitEditing={handleOrder}
+          blurOnSubmit={true}
           onChangeText={setAdress}
           placeholder='Por favor informe o endereço de entrega completo! bairro rua numero e complemento'/>
         </View>
