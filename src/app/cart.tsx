@@ -1,24 +1,30 @@
 import { View, Text, ScrollView, Alert} from "react-native"
-import { Feather} from '@expo/vector-icons'
-import { useState } from "react"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useNavigation } from "expo-router"
+import { useState } from "react"
+import { Feather} from '@expo/vector-icons'
 
+import { formatCurrency } from "../utils/functions/formartCurrency"
+import { LinkButton } from "../components/linkButton"
 import { Product } from "../components/product"
+import { Button } from "../components/buttom"
 import { Header } from '@/src/components/header'
+import { Input } from "../components/input"
 
 import { ProductCartProps, useCartStore } from "../stores/cartStore"
-import { formatCurrency } from "../utils/functions/formartCurrency"
-import { Input } from "../components/input"
-import { Button } from "../components/buttom"
-import { LinkButton } from "../components/linkButton"
 
 export default function Cart(){
   const [address, setAdress] = useState('')
   const cartStore = useCartStore()
-  const total = formatCurrency(cartStore.products.reduce(
+  const navigation = useNavigation()
+
+
+  const total = formatCurrency(
+    cartStore.products.reduce(
     (total, product) => total + product.price * product.quantity,
     0)
   )
+
     function handleProductRemov(product: ProductCartProps){
       Alert.alert('Remover Item', `Deseja remmover ${product.title} do carrinho?`,[
         {
@@ -30,7 +36,6 @@ export default function Cart(){
         },
       ])
     }
-
 
     function handleOrder(){
       if(address.trim().length === 0 ){
@@ -47,6 +52,10 @@ export default function Cart(){
         \n Valor total: ${total}✔
         `
       
+
+        cartStore.clear()
+        navigation.goBack()
+
     }
 
   return (
