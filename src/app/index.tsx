@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 import { CategoryButton } from '../components/categoryButton'
 import { Product } from '../components/product'
@@ -10,8 +10,22 @@ import { CATEGORIES, MENU } from '../utils/data/products'
 export default function Home(){
   const [category, setCategory] = useState(CATEGORIES[0])
 
+  const sectionListRef = useRef<SectionList>(null)
+
   function handleCategorySelect(selectedCategory: string){
     setCategory(selectedCategory)
+
+    const sectionIndex = CATEGORIES.find((category) =>
+      category === selectedCategory
+    )
+    if(sectionListRef.current) {
+      sectionListRef.current.scrollToLocation({
+        animated: true,
+        itemIndex: 0,
+        sectionIndex,
+
+      })
+    }   
   }
 
 return (
@@ -32,6 +46,7 @@ return (
   />
 
   <SectionList 
+    ref={sectionListRef}
     sections={MENU}
     keyExtractor={(item) => item.id}
     stickySectionHeadersEnabled={false}
