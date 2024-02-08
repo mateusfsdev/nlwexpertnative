@@ -1,18 +1,28 @@
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
+import { Feather } from '@expo/vector-icons'
+import colors from 'tailwindcss/colors'
 
 type HeaderProps = {
-  title: string
+  title: string,
+  cartQuantityItems?: number,
 }
 
-export function Header({title}: HeaderProps){
+export function Header({title, cartQuantityItems= 0}: HeaderProps){
   return (
     <View className='flex-row items-center border-b border-slate-800 pb-5 mx-5 '>
       <View className="flex-1">
-        <Image source={require('../assets/logo.png')}
-        className="h-6 w-32 "></Image>
-        <Text className="text-zinc-100 text-xl font-heading mt-2">{title}</Text>
-
+        <Image source={require('../assets/logo.png')}className="h-6 w-32 "/>
+        <Text className="text-zinc-50 font-heading mt-2">{title}</Text>
       </View>
+
+      {cartQuantityItems > 0 && (
+        <TouchableOpacity className="relative" activeOpacity={0.5}>
+          <View className=" top-2 z-10 -right-3.5 items-center justify-center bg-lime-300 w-4 h-4 rounded-full">
+            <Text className="text-slate-950 font-bold text-xs ">{cartQuantityItems}</Text>
+          </View>
+          <Feather name='shopping-bag' color={colors.white} size={24}/>
+        </TouchableOpacity>
+      )}
     </View>
   )
 }
