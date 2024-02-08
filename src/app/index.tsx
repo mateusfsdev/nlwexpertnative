@@ -1,11 +1,11 @@
 import { useState, useRef } from 'react'
-
-import { CategoryButton } from '../components/categoryButton'
-import { Product } from '../components/product'
-import { Header } from '../components/header'
-
 import { View, FlatList, SectionList, Text } from 'react-native'
 import { CATEGORIES, MENU } from '../utils/data/products'
+
+import { Header } from '../components/header'
+import { Product } from '../components/product'
+import { CategoryButton } from '../components/categoryButton'
+
 
 export default function Home(){
   const [category, setCategory] = useState(CATEGORIES[0])
@@ -15,7 +15,7 @@ export default function Home(){
   function handleCategorySelect(selectedCategory: string){
     setCategory(selectedCategory)
 
-    const sectionIndex = CATEGORIES.find((category) =>
+    const sectionIndex = CATEGORIES.findIndex((category) =>
       category === selectedCategory
     )
     if(sectionListRef.current) {
@@ -23,7 +23,6 @@ export default function Home(){
         animated: true,
         itemIndex: 0,
         sectionIndex,
-
       })
     }   
   }
@@ -48,11 +47,9 @@ return (
   <SectionList 
     ref={sectionListRef}
     sections={MENU}
+    renderItem={({item}) => <Product data={item} />}
     keyExtractor={(item) => item.id}
     stickySectionHeadersEnabled={false}
-    renderItem={({item}) => (
-      <Product data={item}/>
-    )}
     renderSectionHeader={({section: {title} }) => (
     <Text className='text-zinc-50 text-xl font-heading mt-8 mb-3 '>
       {title}
