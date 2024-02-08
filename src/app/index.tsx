@@ -16,7 +16,8 @@ export default function Home(){
 
   const sectionListRef = useRef<SectionList<ProductProps>>(null)
 
-  const cartQuantityItems = cartStore.products.reduce((total, product) => total + product.quantity, 0)
+  const cartQuantityItems = cartStore.products.reduce(
+    (total, product) =>total + product.quantity, 0)
 
   function handleCategorySelect(selectedCategory: string){
     setCategory(selectedCategory)
