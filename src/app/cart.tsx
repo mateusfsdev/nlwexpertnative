@@ -114,7 +114,7 @@ export default function Cart(){
             </Button.Icon>
           </Button>
 
-          <LinkButton title='voltar ao menuu' href='/'></LinkButton>
+          <LinkButton title='voltar ao menu' href='/'></LinkButton>
 
         </View>
     </View>
